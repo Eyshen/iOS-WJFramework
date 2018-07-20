@@ -1,0 +1,57 @@
+Pod::Spec.new do |s|
+
+s.name         = "WJCommon"
+s.version      = "1.0.9"
+s.summary      = "iOS Objective-C,公共组件开发包."
+
+s.description  = <<-DESC
+    公共组件开发包,几乎所有的WJ组件都需要依赖此开发包
+DESC
+
+s.homepage     = "https://git.coding.net/halayun"
+
+s.license      = { :type => "MIT", :file => "LICENSE" }
+
+s.author             = { "吴云海" => "halayun@qq.com" }
+
+s.platform     = :ios, "5.0"
+
+s.source       = { :git => "http://gitlab.jucaicat.net/iOS-Framework/WJCommon.git", :tag => "#{s.version}" }
+
+s.frameworks = "Foundation", "UIKit", "CoreGraphics"
+s.exclude_files = "Example"
+
+s.requires_arc = true
+
+
+s.subspec 'Core' do |core|
+    core.source_files = 'Classes/*.{h,m}'
+    core.public_header_files = 'Classes/*.h'
+end
+
+s.subspec 'Utils' do |utils|
+    utils.source_files = 'Classes/Utils/*'
+    utils.public_header_files = 'Classes/Utils/*.h'
+end
+
+s.subspec 'SwipeBack' do |swipeback|
+    swipeback.source_files = 'Classes/UI/SwipeBack/*'
+    swipeback.public_header_files = 'Classes/UI/SwipeBack/*.h'
+end
+
+s.subspec 'UI' do |ui|
+    ui.source_files = 'Classes/UI/*'
+    ui.public_header_files = 'Classes/UI/*.h'
+
+    ui.dependency 'WJCommon/SwipeBack'
+    ui.dependency 'WJCommon/Core'
+    ui.dependency 'WJCommon/Utils'
+    ui.dependency 'WJLoadingView/API'
+    ui.dependency 'WJPullRefreshViewAPI'
+end
+
+
+s.dependency "WJJSON"
+s.dependency "WJLoggingAPI"
+
+end
